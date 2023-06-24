@@ -7,7 +7,7 @@
                     aria-autocomplete="list"
                     aria-labelledby="vs2__combobox"
                     aria-controls="vs2__listbox"
-                    type="search"
+                    :type="password ? 'password' : 'search'"
                     autocomplete="off"
                     :placeholder="placeholder"
                     :value="modelValue"
@@ -25,7 +25,8 @@ export default {
     },
     props: [
         'placeholder',
-        'modelValue'
+        'modelValue',
+        'password'
     ],
     data() {
         return {}

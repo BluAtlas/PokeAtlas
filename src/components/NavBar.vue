@@ -13,6 +13,7 @@
         ></SearchBarInput>
         <SearchBarInput
             v-model="valueAPIKey"
+            :password="true"
             :placeholder="'Optional API Key'"
             @run-search="$emit('run-search', searchData)"
         ></SearchBarInput>
