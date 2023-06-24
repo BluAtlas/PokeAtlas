@@ -1,8 +1,8 @@
-# poketcg-api-search
+# PokeAtlas, A PokeTCG API Search Tool
 
-## **WORK IN PROGRESS**
+## Live at [https://BluAtlas.github.io/PokeAtlas/](https://BluAtlas.github.io/PokeAtlas/)
 
-A web app for searching for Pokemon cards using the Pokemon TCG API.
+A Vue.Js app for searching for Pokemon cards using the [Pokemon TCG API](https://pokemontcg.io/).
 
 ## Project setup
 
