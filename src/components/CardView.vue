@@ -2,6 +2,7 @@
     <div id="cardview">
         <div id="subtype">
             <p
+                @click.prevent="console.log(cardData)"
                 v-for="(subtype, index) in cardSubtypes"
                 :key="index"
             >{{ subtype }}</p>
@@ -11,23 +12,32 @@
         <div id="setnumber">Card {{ cardNumber }} / {{ cardSetTotal }}</div>
         <div id="setdate">{{ cardSetReleaseDate }}</div>
         <div id="seticon">
-            <img
-                :src="cardSetImagesSymbol"
-                alt="set symbol"
-                object-fit="contain"
+            <a
+                :href="cardSetImagesSymbol"
+                target="_blank"
             >
+                <img
+                    :src="cardSetImagesSymbol"
+                    alt="set symbol"
+                    object-fit="contain"
+                >
+            </a>
         </div>
         <div id="card">
-            <img
-                :src="cardImagesSmall"
-                alt="pokemon card"
-                width="245"
-                height="342"
+            <a
+                :href="cardImagesLarge"
+                target="_blank"
             >
+                <img
+                    :src="cardImagesSmall"
+                    alt="pokemon card"
+                    width="245"
+                    height="342"
+                ></a>
         </div>
         <div id="price">
             <v-select
-                placeholder="SelectFoiling"
+                placeholder="Select Foiling"
                 v-model="selectedOption"
                 :options="cardTcgplayerPrices"
                 autocomplete
@@ -69,11 +79,16 @@
             <p>{{ cardSetName }}</p>
         </div>
         <div id="setlogo">
-            <img
-                :src="cardSetImagesLogo"
-                alt="set logo"
-                object-fit="contain"
+            <a
+                :href="cardSetImagesLogo"
+                target="_blank"
             >
+                <img
+                    :src="cardSetImagesLogo"
+                    alt="set logo"
+                    object-fit="contain"
+                >
+            </a>
         </div>
 
 
@@ -90,7 +105,7 @@ export default {
     ],
     data() {
         return {
-            selectedOption: this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? Object.keys(this.cardData.tcgplayer.prices).find(Boolean) : null : null,
+            selectedOption: this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? Object.keys(this.cardData.tcgplayer.prices).length > 0 ? Object.keys(this.cardData.tcgplayer.prices)[0] : null : null : null,
 
         }
     }
@@ -109,6 +124,7 @@ export default {
         cardSetImagesSymbol: function () { return this.cardData.set !== undefined ? this.cardData.set.images !== undefined ? this.cardData.set.images.symbol !== undefined ? this.cardData.set.images.symbol : '' : '' : '' },
         cardSetImagesLogo: function () { return this.cardData.set !== undefined ? this.cardData.set.images !== undefined ? this.cardData.set.images.logo !== undefined ? this.cardData.set.images.logo : '' : '' : '' },
         cardImagesSmall: function () { return this.cardData.images !== undefined ? this.cardData.images.small !== undefined ? this.cardData.images.small : '' : '' },
+        cardImagesLarge: function () { return this.cardData.images !== undefined ? this.cardData.images.large !== undefined ? this.cardData.images.large : '' : '' },
         cardTcgplayerPrices: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? Object.keys(this.cardData.tcgplayer.prices) : [] : [] },
         cardTcgplayerPricesMarket: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].market !== undefined ? parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].market).toFixed(2) : '' : '' : '' : '' },
         cardTcgplayerPricesLow: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].low !== undefined ? parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].low).toFixed(2) : '' : '' : '' : '' },

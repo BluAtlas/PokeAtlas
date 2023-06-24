@@ -1,10 +1,11 @@
 <template>
   <NavBar @run-search="(data) => { searchData = data }"></NavBar>
+  <p>Use the enter key to search.</p>
   <p>
     <a
       href="https://dev.pokemontcg.io/"
-      style="margin:0; margin-bottom:1em; text-decoration:none; font-size:1.5em; color:darkblue"
-    >Get API Key Here for more than 1000 requests a day.</a>
+      style="margin:0; margin-bottom:1em; text-decoration:none; font-size:1em; color:darkblue"
+    >Optionally, get an API Key Here for more than 1000 requests a day.</a>
   </p>
 
   <CardViewer :searchData="searchData"></CardViewer>

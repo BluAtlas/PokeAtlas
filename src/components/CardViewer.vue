@@ -159,11 +159,12 @@ export default {
             if (newSearchData !== null) {
                 this.loading = true;
                 let q = '';
-                if (newSearchData.key != '' && this.savedKey == '') {
+                if (newSearchData.key !== null && this.savedKey == '') {
                     this.$pokemon.configure({
                         apiKey: newSearchData.key
                     })
                     this.savedKey = newSearchData.key
+                    localStorage.setItem('PokeApiKey', JSON.stringify(this.savedKey))
                 }
                 if (newSearchData.pokemon != '') {
                     q = q.concat(`name:"${newSearchData.pokemon}*" `)
@@ -176,11 +177,13 @@ export default {
                 }
                 if (q != '') {
                     console.log("SEARCHED:", q);
-                    if (this.keyConfigured) { console.log("Using Key:", this.savedKey) }
+                    if (this.savedKey != '') { console.log("Using API Key") }
                     this.$pokemon.card.all({ q }).then((cards) => {
                         this.loading = false
                         this.cardData = cards
                     })
+                } else {
+                    this.loading = false;
                 }
             }
         }

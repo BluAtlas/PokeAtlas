@@ -37,7 +37,7 @@ export default {
             valuePokemon: '',
             valueYear: '',
             valueSubtype: '',
-            valueAPIKey: ''
+            valueAPIKey: JSON.parse(localStorage.getItem('PokeApiKey')),
         }
     }
     ,
