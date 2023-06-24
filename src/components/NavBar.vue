@@ -11,6 +11,12 @@
             :placeholder="'Year'"
             @run-search="$emit('run-search', searchData)"
         ></SearchBarInput>
+        <SearchBarInput
+            v-model="valueAPIKey"
+            :placeholder="'Optional API Key'"
+            @run-search="$emit('run-search', searchData)"
+        ></SearchBarInput>
+
     </nav>
 </template>
 
@@ -31,6 +37,7 @@ export default {
             valuePokemon: '',
             valueYear: '',
             valueSubtype: '',
+            valueAPIKey: ''
         }
     }
     ,
@@ -39,7 +46,8 @@ export default {
             let data = {
                 pokemon: this.valuePokemon.trim(),
                 year: this.valueYear.trim(),
-                subtype: this.valueSubtype.trim()
+                subtype: this.valueSubtype.trim(),
+                key: this.valueAPIKey.trim()
             }
             return data
         }
@@ -55,9 +63,10 @@ export default {
 
 <style scoped>
 nav {
+    background-color: aliceblue;
     width: 90%;
     display: inline-grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    margin-bottom: 2rem
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    margin-bottom: 0em;
 }
 </style>

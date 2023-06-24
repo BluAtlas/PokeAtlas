@@ -5,7 +5,6 @@
         :options="options"
         :loading="loading"
         autocomplete
-        @keyup.enter="console.log('enter')"
     ></v-select>
 </template>
 
@@ -42,8 +41,4 @@ export default {
 
 <style>
 @import "vue-select/dist/vue-select.css";
-
-
-/* Example styles */
-/* Example styling for the dropdown */
 </style>

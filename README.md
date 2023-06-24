@@ -6,8 +6,6 @@ A web app for searching for Pokemon cards using the Pokemon TCG API.
 
 ## Project setup
 
-First, Rename `api-key-EXAMPLE.js` to `api-key.js`, and add your Pokemon TCG API key into the file on the first line.
-
 ### Install dependencies
 
 ```bash
