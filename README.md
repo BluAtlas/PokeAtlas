@@ -29,3 +29,11 @@ npm run build
 ```bash
 npm run lint
 ```
+
+### Push to github pages branch
+
+```bash
+npm build dist
+git commit -m "new dist"
+git subtree push --prefix dist origin gh-pages
+```
