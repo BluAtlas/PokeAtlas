@@ -157,6 +157,7 @@ export default {
     watch: {
         searchData: function (newSearchData) {
             if (newSearchData !== null) {
+                this.cardData = [];
                 this.loading = true;
                 let q = '';
                 if (newSearchData.key !== null && this.savedKey == '') {
