@@ -174,7 +174,7 @@ export default {
                     q = q.concat(`set.releaseDate:"*${newSearchData.year}*" `)
                 }
                 if (newSearchData.subtype != '') {
-                    q = q.concat(`subtype:"${newSearchData.subtype}"`)
+                    q = q.concat(`subtypes:"${newSearchData.subtype}"`)
                 }
                 if (q != '') {
                     console.log("SEARCHED:", q);

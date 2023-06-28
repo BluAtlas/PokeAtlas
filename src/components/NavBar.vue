@@ -47,7 +47,7 @@ export default {
             let data = {
                 pokemon: this.valuePokemon.trim(),
                 year: this.valueYear.trim(),
-                subtype: this.valueSubtype.trim(),
+                subtype: this.valueSubtype !== null ? this.valueSubtype.toLowerCase().trim() : '',
                 key: this.valueAPIKey.trim()
             }
             return data
