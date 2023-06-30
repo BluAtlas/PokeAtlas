@@ -13,7 +13,7 @@
         <SearchBarSelect
             v-model="valueYear"
             :placeholder="'Year'"
-            :options-data="years"
+            :options-data="releaseYears"
         ></SearchBarSelect>
         <SearchBarInput
             v-model="valueAPIKey"
@@ -24,7 +24,14 @@
         <SearchBarSelect
             v-model="valueOrderBy"
             placeholder="Sort By"
-            :options-data="['name', 'set', 'rarity', 'number']"
+            :options-data="[
+                { label: 'Name', value: 'name' },
+                { label: 'Newest', value: '-set.releaseDate' },
+                { label: 'Oldest', value: 'set.releaseDate' },
+                { label: 'Set', value: 'set' },
+                { label: 'Series', value: 'set.series' },
+                { label: 'Rarity', value: 'rarity' },
+            ]"
         ></SearchBarSelect>
 
     </nav>
@@ -60,10 +67,10 @@ export default {
                 pokemon: this.valuePokemon != null ? this.valuePokemon.toLowerCase().trim() : '',
                 year: this.valueYear != null ? this.valueYear : '',
                 key: this.valueAPIKey != null ? this.valueAPIKey.trim() : '',
-                orderBy: this.valueOrderBy !== null ? this.valueOrderBy.toLowerCase().trim() : '',
+                orderBy: this.valueOrderBy !== null ? this.valueOrderBy.value.trim() : '',
             }
         },
-        years: function () {
+        releaseYears: function () {
             var dates = []
             for (let i = 1999; i <= new Date().getFullYear(); i++) {
                 dates.push(i)
