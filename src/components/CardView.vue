@@ -1,5 +1,8 @@
 <template>
-    <div id="cardview">
+    <div
+        id="cardview"
+        :class="[cardType]"
+    >
         <div id="subtype">
             <p
                 @click.prevent="console.log(cardData)"
@@ -132,6 +135,7 @@ export default {
         cardTcgplayerUpdatedAt: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.updatedAt !== undefined ? this.cardData.tcgplayer.updatedAt : '' : '' },
         cardTcgplayerUrl: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.url !== undefined ? this.cardData.tcgplayer.url : null : null },
         cardCardmarketUrl: function () { return this.cardData.cardmarket !== undefined ? this.cardData.cardmarket.url !== undefined ? this.cardData.cardmarket.url : null : null },
+        cardType: function () { return this.cardData.types !== undefined ? this.cardData.types.length > 0 ? this.cardData.types[0].toLowerCase() : 'notype' : 'notype' },
     },
     watch: {
     },
@@ -142,14 +146,62 @@ export default {
 </script>
 
 <style scoped>
+.colorless {
+    background-color: #E5D6D0;
+}
+
+.darkness {
+    background-color: #bfc2be;
+}
+
+.dragon {
+    background-color: #f4e095;
+}
+
+.fairy {
+    background-color: #f5c2d9;
+}
+
+.fighting {
+    background-color: #ffb88f;
+}
+
+.fire {
+    background-color: #ee8e8e;
+}
+
+.grass {
+    background-color: #c8f867;
+}
+
+.lightning {
+    background-color: #fcf391;
+}
+
+.metal {
+    background-color: #cfc4bf;
+}
+
+.psychic {
+    background-color: #cea6c7;
+}
+
+.water {
+    background-color: #b5e6f3;
+}
+
+.notype {
+    background-color: antiquewhite;
+}
+
 #cardview {
     border: solid rgba(255, 242, 0, 0.281);
     border-width: 7px;
     border-radius: 20px;
-    background-color: antiquewhite;
+    /*background-color: antiquewhite;*/
 
     display: grid;
-    grid-template-columns: 75px 180px 150px 50px;
+    grid-template-columns: 75px 180px 150px 60px;
     grid-template-rows: auto 30px 150px 70px auto 79px;
     grid-column-gap: 4px;
     grid-row-gap: 0px;

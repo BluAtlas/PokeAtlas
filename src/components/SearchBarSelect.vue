@@ -1,9 +1,10 @@
 <template>
     <v-select
-        placeholder="Subtype"
         v-model="selectedOption"
+        :placeholder="placeholder"
         :options="options"
         :loading="loading"
+        :selectOnTab="true"
         autocomplete
     ></v-select>
 </template>
@@ -13,8 +14,9 @@ export default {
     components: {
     },
     inject: ['$pokemon'],
-    props: {
-    },
+    props: [
+        'optionsPromise', 'placeholder', 'optionsData'
+    ],
     data() {
         return {
             options: [],
@@ -30,10 +32,15 @@ export default {
     methods: {
     },
     created() {
-        this.$pokemon.subtype.all().then((types) => {
-            this.options = types
+        if (this.optionsPromise !== undefined) {
+            this.optionsPromise().then((options) => {
+                this.options = options
+                this.loading = false;
+            });
+        } else {
+            this.options = this.optionsData
             this.loading = false;
-        });
+        }
     }
 
 }

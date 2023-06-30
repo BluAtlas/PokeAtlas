@@ -1,8 +1,9 @@
 <template>
     <div id="cardviewer">
 
-        <!--CardView :cardData="exampleCard"></CardView-->
         <h1 v-if="loading">Loading, please Wait...</h1>
+
+        <!--CardView :cardData="exampleCard"></CardView-->
         <CardView
             v-for="(card, index) in cardData"
             :key="index"
@@ -160,6 +161,7 @@ export default {
                 this.cardData = [];
                 this.loading = true;
                 let q = '';
+                let orderBy = '';
                 if (newSearchData.key !== null && this.savedKey == '') {
                     this.$pokemon.configure({
                         apiKey: newSearchData.key
@@ -176,10 +178,13 @@ export default {
                 if (newSearchData.subtype != '') {
                     q = q.concat(`subtypes:"${newSearchData.subtype}"`)
                 }
+                if (newSearchData.orderBy != '') {
+                    orderBy = newSearchData.orderBy
+                }
                 if (q != '') {
-                    console.log("SEARCHED:", q);
+                    console.log("Search q:", q, "\nOrderBy:", orderBy);
                     if (this.savedKey != '') { console.log("Using API Key") }
-                    this.$pokemon.card.all({ q }).then((cards) => {
+                    this.$pokemon.card.all({ q, orderBy }).then((cards) => {
                         this.loading = false
                         this.cardData = cards
                     })
