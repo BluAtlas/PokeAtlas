@@ -23,6 +23,7 @@
 export default {
     components: {
     },
+    emits: ["run-search", 'update:modelValue'],
     props: [
         'placeholder',
         'modelValue',

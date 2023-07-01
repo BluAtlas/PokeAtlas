@@ -2,7 +2,7 @@
 
 ## Live at [https://BluAtlas.github.io/PokeAtlas/](https://BluAtlas.github.io/PokeAtlas/)
 
-A Vue.Js app for searching for Pokemon cards using the [Pokemon TCG API](https://pokemontcg.io/).
+A Vue.js app for searching for Pokemon cards using the [Pokemon TCG API](https://pokemontcg.io/).
 
 ![img](./thumbnail.png)
 

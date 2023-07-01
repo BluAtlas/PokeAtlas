@@ -45,13 +45,13 @@
                 :options="cardTcgplayerPrices"
                 autocomplete
             ></v-select>
-            <p id="price-market">${{ cardTcgplayerPricesMarket }}
+            <p id="price-market">{{ cardTcgplayerPricesMarket }}
             </p>
-            <p id="price-range">${{ cardTcgplayerPricesLow }}
+            <p id="price-range">{{ cardTcgplayerPricesLow }}
                 -
-                ${{ cardTcgplayerPricesHigh }}
+                {{ cardTcgplayerPricesHigh }}
             </p>
-            <p id="price-date">As of {{ cardTcgplayerUpdatedAt }}</p>
+            <p id="price-date">{{ cardTcgplayerUpdatedAt }}</p>
         </div>
         <div id="buttons">
             <a
@@ -98,7 +98,6 @@
     </div>
 </template>
 
-
 <script>
 export default {
     components: {
@@ -108,7 +107,7 @@ export default {
     ],
     data() {
         return {
-            selectedOption: this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? Object.keys(this.cardData.tcgplayer.prices).length > 0 ? Object.keys(this.cardData.tcgplayer.prices)[0] : null : null : null,
+            selectedOption: null,
 
         }
     }
@@ -129,18 +128,25 @@ export default {
         cardImagesSmall: function () { return this.cardData.images !== undefined ? this.cardData.images.small !== undefined ? this.cardData.images.small : '' : '' },
         cardImagesLarge: function () { return this.cardData.images !== undefined ? this.cardData.images.large !== undefined ? this.cardData.images.large : '' : '' },
         cardTcgplayerPrices: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? Object.keys(this.cardData.tcgplayer.prices) : [] : [] },
-        cardTcgplayerPricesMarket: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].market !== undefined ? parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].market).toFixed(2) : '' : '' : '' : '' },
-        cardTcgplayerPricesLow: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].low !== undefined ? parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].low).toFixed(2) : '' : '' : '' : '' },
-        cardTcgplayerPricesHigh: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].high !== undefined ? parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].high).toFixed(2) : '' : '' : '' : '' },
-        cardTcgplayerUpdatedAt: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.updatedAt !== undefined ? this.cardData.tcgplayer.updatedAt : '' : '' },
+        cardTcgplayerPricesMarket: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].market !== undefined ? '$'.concat(parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].market).toFixed(2)) : 'N/A' : 'N/A' : 'N/A' : 'N/A' },
+        cardTcgplayerPricesLow: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].low !== undefined ? '$'.concat(parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].low).toFixed(2)) : 'N/A' : 'N/A' : 'N/A' : 'N/A' },
+        cardTcgplayerPricesHigh: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption] !== undefined ? this.cardData.tcgplayer.prices[this.selectedOption].high !== undefined ? '$'.concat(parseFloat(this.cardData.tcgplayer.prices[this.selectedOption].high).toFixed(2)) : 'N/A' : 'N/A' : 'N/A' : 'N/A' },
+        cardTcgplayerUpdatedAt: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.updatedAt !== undefined ? "As of ".concat(this.cardData.tcgplayer.updatedAt) : 'N/A' : 'N/A' },
         cardTcgplayerUrl: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.url !== undefined ? this.cardData.tcgplayer.url : null : null },
         cardCardmarketUrl: function () { return this.cardData.cardmarket !== undefined ? this.cardData.cardmarket.url !== undefined ? this.cardData.cardmarket.url : null : null },
         cardType: function () { return this.cardData.types !== undefined ? this.cardData.types.length > 0 ? this.cardData.types[0].toLowerCase() : 'notype' : 'notype' },
+        cardSelectedOption: function () { return this.cardData.tcgplayer !== undefined ? this.cardData.tcgplayer.prices !== undefined ? Object.keys(this.cardData.tcgplayer.prices).length > 0 ? Object.keys(this.cardData.tcgplayer.prices).sort((a, b) => a == "normal" ? -1 : b == "normal" ? 1 : 0)[0] : null : null : null }
     },
     watch: {
+        cardData: function () {
+            this.selectedOption = this.cardSelectedOption
+        }
     },
     methods: {
     },
+    created: function () {
+        this.selectedOption = this.cardSelectedOption;
+    }
 
 }
 </script>

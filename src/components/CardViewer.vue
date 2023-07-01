@@ -1,8 +1,7 @@
 <template>
+    <h3 v-if="loading">Loading Card Data...</h3>
+    <h3 v-if="!loading">{{ cardData.length }} Results</h3>
     <div id="cardviewer">
-
-        <h1 v-if="loading">Loading, please Wait...</h1>
-
         <!--CardView :cardData="exampleCard"></CardView-->
         <CardView
             v-for="(card, index) in cardData"
@@ -11,7 +10,6 @@
         ></CardView>
     </div>
 </template>
-
 
 <script>
 import CardView from "./CardView.vue";
@@ -22,7 +20,7 @@ export default {
     },
     inject: ['$pokemon'],
     props: [
-        'searchData'
+        'searchData', 'sortData'
 
     ],
     data() {
@@ -170,16 +168,19 @@ export default {
                     localStorage.setItem('PokeApiKey', JSON.stringify(this.savedKey))
                 }
                 if (newSearchData.pokemon != '') {
-                    q = q.concat(`name:"${newSearchData.pokemon}*" `)
+                    q += `name:"${newSearchData.pokemon}*" `
                 }
                 if (newSearchData.year != '') {
-                    q = q.concat(`set.releaseDate:"*${newSearchData.year}*" `)
+                    q += `set.releaseDate:"*${newSearchData.year}*" `
                 }
                 if (newSearchData.subtype != '') {
-                    q = q.concat(`subtypes:"${newSearchData.subtype}"`)
+                    q += `subtypes:"${newSearchData.subtype}" `
                 }
-                if (newSearchData.orderBy != '') {
-                    orderBy = newSearchData.orderBy
+                if (newSearchData.sortData.string != '') {
+                    orderBy = newSearchData.sortData.string
+                    if (!newSearchData.sortData.isAscending) {
+                        orderBy = '-' + orderBy;
+                    }
                 }
                 if (q != '') {
                     console.log("Search q:", q, "\nOrderBy:", orderBy);
@@ -187,14 +188,46 @@ export default {
                     this.$pokemon.card.all({ q, orderBy }).then((cards) => {
                         this.loading = false
                         this.cardData = cards
+                        this.sortCardData(newSearchData.sortData)
                     })
                 } else {
                     this.loading = false;
                 }
             }
+        },
+        sortData: function (newSortData) {
+            this.sortCardData(newSortData)
+        },
+        cardData: function () {
+
         }
     },
     methods: {
+        sortCardData: function (sortData) {
+            if (this.cardData.length > 0) {
+                let direction_integer = -1
+                if (sortData.isAscending) {
+                    direction_integer = 1;
+                }
+                let searchProps = sortData.string.split('.')
+                this.cardData.sort((a, b) => {
+                    for (let i of searchProps) { // ensure properties exist, sort to back if they don't
+                        if (a[i] === undefined && b[i] === undefined) {
+                            return 0;
+                        } else if (a[i] === undefined) {
+                            return 1
+                        } else if (b[i] === undefined) {
+                            return -1
+                        } else {
+                            a = a[i]
+                            b = b[i]
+                        }
+                    }
+                    // loop ended, both objects have the desired sortable property
+                    return a > b ? direction_integer : b > a ? -direction_integer : 0
+                })
+            }
+        }
     },
 
 }

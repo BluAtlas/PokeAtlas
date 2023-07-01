@@ -6,6 +6,7 @@
         :loading="loading"
         :selectOnTab="true"
         autocomplete
+        @keyup.enter="$emit('run-search')"
     ></v-select>
 </template>
 
@@ -13,6 +14,7 @@
 export default {
     components: {
     },
+    emits: ["run-search"],
     inject: ['$pokemon'],
     props: [
         'optionsPromise', 'placeholder', 'optionsData'
