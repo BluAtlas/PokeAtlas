@@ -4,6 +4,8 @@
 
 A Vue.Js app for searching for Pokemon cards using the [Pokemon TCG API](https://pokemontcg.io/).
 
+![img](./thumbnail.png)
+
 ## Project setup
 
 ### Install dependencies
