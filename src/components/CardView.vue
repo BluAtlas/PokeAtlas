@@ -201,7 +201,7 @@ export default {
 }
 
 #cardview {
-    border: solid rgba(255, 242, 0, 0.281);
+    border: solid rgb(255, 217, 0);
     border-width: 7px;
     border-radius: 20px;
     /*background-color: antiquewhite;*/
@@ -371,5 +371,32 @@ export default {
     width: 200;
     max-height: 75px;
     max-width: 200px;
+}
+
+.placeholder {
+    background-color: #eee;
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0
+    }
+
+    100% {
+        background-position: 468px 0
+    }
+}
+
+.animated-background {
+    animation-duration: 1.25s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: darkgray;
+    background: linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    height: 100px;
+    position: relative;
 }
 </style>

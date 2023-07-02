@@ -48,6 +48,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "vue-select/dist/vue-select.css";
 </style>

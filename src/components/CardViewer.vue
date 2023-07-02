@@ -1,22 +1,33 @@
 <template>
     <h3 v-if="loading">Loading Card Data...</h3>
     <h3 v-if="!loading">{{ cardData.length }} Results</h3>
-    <div id="cardviewer">
+    <div class="cardviewer">
         <!--CardView :cardData="exampleCard"></CardView-->
+        <!--CardViewPlaceholder></CardViewPlaceholder-->
         <CardView
             v-for="(card, index) in cardData"
             :key="index"
             :cardData="card"
         ></CardView>
     </div>
+    <div
+        class="cardviewer"
+        v-if="loading"
+    >
+        <CardViewSkeleton
+            v-for="(i) in Array.from({ length: 10 }, (v, i) => i)"
+            :key="i"
+        ></CardViewSkeleton>
+    </div>
 </template>
 
 <script>
 import CardView from "./CardView.vue";
+import CardViewSkeleton from "./CardViewSkeleton.vue";
 
 export default {
     components: {
-        CardView
+        CardView, CardViewSkeleton
     },
     inject: ['$pokemon'],
     props: [
@@ -198,9 +209,6 @@ export default {
         sortData: function (newSortData) {
             this.sortCardData(newSortData)
         },
-        cardData: function () {
-
-        }
     },
     methods: {
         sortCardData: function (sortData) {
@@ -229,12 +237,11 @@ export default {
             }
         }
     },
-
 }
 </script>
 
 <style scoped>
-#cardviewer {
+.cardviewer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
